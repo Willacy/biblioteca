@@ -1,9 +1,11 @@
 <?php
+require_once './controller/ControllerUsuario.php';
 class TelaUsuario
 {
+    private $controllerUsuario;
     public function telaLogin()
     {
-?>
+        ?>
         <div class="container mt-5 bg-secondary">
             <div class="row justify-content-center">
                 <div class="col-md-6">
@@ -30,7 +32,7 @@ class TelaUsuario
                 </div>
             </div>
         </div>
-    <?php
+        <?php
     }
 
     // Realizar login
@@ -38,5 +40,16 @@ class TelaUsuario
     {
         $login = $_POST['login'];
         $senha = $_POST['senha'];
+
+        $this->controllerUsuario = new ControllerUsuario();
+
+        $resultado = $this->controllerUsuario->verificarLogin($login, $senha);
+        if ($resultado == 1) {
+            echo 'Logado';
+        } else {
+            echo $resultado;
+        }
+
+
     }
 }

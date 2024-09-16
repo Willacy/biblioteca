@@ -64,7 +64,38 @@ class Usuarios
     }
 
     // metodo Create
-    public function criarUsuario(){
-        
+    public function criarUsuario()
+    {
+
+    }
+
+    // Metodo fazer login
+     public function fazLogin($login_usuario, $senha_usuario)
+    {
+        include_once './src/db_connection_pdo.php';
+        try {
+            $query = "SELECT * FROM usuarios WHERE login_usuario = :login_usuario AND senha_usuario = :senha_usuario";
+            $stmt = $conn->prepare($query);
+
+            $stmt->bindParam(":login_usuario", $login_usuario);
+            $stmt->bindParam(":senha_usuario", $senha_usuario);
+
+            $stmt->execute();
+
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($usuario) {
+                $_SESSION['logado'] == true;
+                $_SESSION['mensagem'] == 'Login Efetuado';
+                $_SESSION['usuario'] = $usuario;
+                return $usuario;
+            }else{
+                return null;
+            }
+
+        } catch (PDOException $e) {
+            return "ERRO de LOGIN: " . $e->getMessage();
+        }
+
     }
 }

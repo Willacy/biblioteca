@@ -1,6 +1,7 @@
 <?php
 require_once './src/Template.php';
 require_once './view/TelaUsuario.php';
+require_once './view/TelaHome.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -19,6 +20,7 @@ if ($method == "PUT") {
 
 $template = new Template();
 $usuario = new TelaUsuario();
+$home = new TelaHome();
 //echo count($uri) . "|" . $uri[$inicio];
 /**
  * Login
@@ -32,12 +34,19 @@ if ($method == "GET" and count($uri) == 1 and $uri[$inicio] == "login") {
 } else if ($method == "POST" and count($uri) == 1 and $uri[$inicio] == "login") {
     // Tenta fazer o login
     $usuario->login();
+}
+/**
+ * Tela Home
+ */ else if ($method == 'POST' and count($uri) == 1 and $uri[$inicio] == 'home') {
+    $tempalte->header('Home');
+    $template->barra();
+    $template->corpo($home->telaPrincipal());
 } else {
     header('Location: /biblioteca/login');
 }
 ?>
 
-<!-- <script>
+<script>
     $('form[method=put],form[method=delete]').on('submit', (e) => {
         e.preventDefault();
         let action = $(e.target).attr('action');
@@ -52,4 +61,4 @@ if ($method == "GET" and count($uri) == 1 and $uri[$inicio] == "login") {
             location.reload();
         });
     })
-</script> -->
+</script>
