@@ -1,5 +1,6 @@
 <?php
 require_once './controller/ControllerUsuario.php';
+require_once './class/Usuarios.php';
 class TelaUsuario
 {
     private $controllerUsuario;
@@ -44,10 +45,14 @@ class TelaUsuario
         $this->controllerUsuario = new ControllerUsuario();
 
         $resultado = $this->controllerUsuario->verificarLogin($login, $senha);
-        if ($resultado == 1) {
-            echo 'Logado';
+        if ($resultado != null) {
+            $_SESSION['usuario'] = $resultado;
+            $_SESSION['logado'] = true;
+            $_SESSION['mensagem'] = "Seja bem vindo {$_SESSION['usuario'][1]}!";
+            header("Location: /biblioteca/home");
         } else {
-            echo $resultado;
+            $_SESSION['mensagem'] = 'Usuario não encontrado';
+            header("Location: /biblioteca/login");
         }
 
 

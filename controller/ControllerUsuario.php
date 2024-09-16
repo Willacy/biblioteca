@@ -5,13 +5,9 @@ class ControllerUsuario
     private $usuario;
     public function verificarLogin($login, $senha)
     {
-        /*if (strlen($senha) < 8) {
-            return 'Senha muito curta';
-        } else {)*/
-            $this->usuario = new Usuarios();
-            $resultado = $this->usuario->fazLogin($this->usuario->setLogin($login), $this->usuario->setSenha(sha1($senha)));
-            return $resultado;
-        //}
+        $this->usuario = new Usuarios();
+        $resultado = $this->usuario->fazLogin($this->usuario->setLogin($login), $this->usuario->setSenha(sha1($senha)));
+        return $resultado;
 
     }
 
