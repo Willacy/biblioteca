@@ -19,12 +19,12 @@ if ($method == "PUT") {
     parse_str(file_get_contents('php://input'), $_PUT);
 }
 
-if (isset($_SESSION['mensagem'])) {
+if (isset($_SESSION['msn'])) {
     echo "
             <div class='toast show position-fixed bottom-0 end-0 align-items-center text-bg-info border-0 text-white'  role='alert' aria-live='assertive' aria-atomic='true'>
             <div class='d-flex'>
                 <div class='toast-body'>
-                {$_SESSION['mensagem']}
+                {$_SESSION['msn']}
                 </div>
                 <button type='button' class='btn-close btn-close-white me-2 m-auto' data-bs-dismiss='toast' aria-label='Close'></button>
             </div>

@@ -42,18 +42,21 @@ class TelaUsuario
         $login = $_POST['login'];
         $senha = $_POST['senha'];
 
+        //echo $login . '||' . $senha;
+
         $this->controllerUsuario = new ControllerUsuario();
 
         $resultado = $this->controllerUsuario->verificarLogin($login, $senha);
-        if ($resultado != null) {
-            $_SESSION['usuario'] = $resultado;
-            $_SESSION['logado'] = true;
-            $_SESSION['mensagem'] = "Seja bem vindo {$_SESSION['usuario'][1]}!";
-            header("Location: /biblioteca/home");
-        } else {
-            $_SESSION['mensagem'] = 'Usuario não encontrado';
-            header("Location: /biblioteca/login");
-        }
+        echo 'View -> ' . $resultado;
+        // if ($resultado != null) {
+        //     $_SESSION['usuario'] = $resultado;
+        //     $_SESSION['logado'] = true;
+        //     $_SESSION['mensagem'] = "Seja bem vindo {$_SESSION['usuario'][1]}!";
+        //     header("Location: /biblioteca/home");
+        // } else {
+        //     $_SESSION['mensagem'] = 'Usuario não encontrado';
+        //     header("Location: /biblioteca/login");
+        // }
 
 
     }

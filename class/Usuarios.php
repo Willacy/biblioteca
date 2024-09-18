@@ -1,5 +1,7 @@
 <?php
-class Usuarios
+
+require_once './src/Conexao.php';
+class Usuarios extends Conexao
 {
     private $id;
     private $nome;
@@ -72,27 +74,22 @@ class Usuarios
     // Metodo fazer login
     public function fazLogin($login_usuario, $senha_usuario)
     {
-        include_once './src/db_connection_pdo.php';
-        try {
-            $query = "SELECT * FROM usuarios WHERE login_usuario = :login_usuario AND senha_usuario = :senha_usuario";
-            $stmt = $conn->prepare($query);
+        return 'Tela Model';
+        // $conn = $this->getConexao();
+        // $query = "SELECT * FROM usuarios WHERE login_usuario = :login_usuario AND senha_usuario = :senha_usuario";
+        // $stmt = $conn->prepare($query);
 
-            $stmt->bindParam(":login_usuario", $login_usuario, PDO::PARAM_STR);
-            $stmt->bindParam(":senha_usuario", $senha_usuario, PDO::PARAM_STR);
+        // $stmt->bindParam(":login_usuario", $login_usuario, PDO::PARAM_STR);
+        // $stmt->bindParam(":senha_usuario", $senha_usuario, PDO::PARAM_STR);
 
-            $stmt->execute();
+        // $stmt->execute();
 
-            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($usuario) {
-                return $usuario;
-            } else {
-                return null;
-            }
-
-        } catch (PDOException $e) {
-            return null;
-        }
-
+        // $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        // $_SESSION['msn'] = $usuario['id_usuario'];
+        // if ($usuario) {
+        //     return $usuario;
+        // } else {
+        //     return null;
+        // }
     }
 }
