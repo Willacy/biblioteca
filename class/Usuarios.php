@@ -74,22 +74,25 @@ class Usuarios extends Conexao
     // Metodo fazer login
     public function fazLogin($login_usuario, $senha_usuario)
     {
-        return 'Tela Model';
-        // $conn = $this->getConexao();
-        // $query = "SELECT * FROM usuarios WHERE login_usuario = :login_usuario AND senha_usuario = :senha_usuario";
-        // $stmt = $conn->prepare($query);
+        $login = $login_usuario;
+        $senha = $senha_usuario;
 
-        // $stmt->bindParam(":login_usuario", $login_usuario, PDO::PARAM_STR);
-        // $stmt->bindParam(":senha_usuario", $senha_usuario, PDO::PARAM_STR);
+        $query = "SELECT * FROM usuarios WHERE login_usuario = :login";
+        $stmt = $this->conexao->prepare($query);
 
-        // $stmt->execute();
+        $stmt->bindParam(":login", $login);
+        $stmt->execute();
 
-        // $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        // $_SESSION['msn'] = $usuario['id_usuario'];
-        // if ($usuario) {
-        //     return $usuario;
-        // } else {
-        //     return null;
-        // }
+        // Busca o usuário com o login fornecido
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuario && $usuario['senha_usuario'] === $senha) {
+            // Login válido
+            return $usuario;
+        } else {
+            // Login inválido
+            return false;
+        }
     }
+
 }

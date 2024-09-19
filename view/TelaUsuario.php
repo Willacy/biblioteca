@@ -47,7 +47,7 @@ class TelaUsuario
         $this->controllerUsuario = new ControllerUsuario();
 
         $resultado = $this->controllerUsuario->verificarLogin($login, $senha);
-        echo 'View -> ' . $resultado;
+        echo "Tela View: {$login} e {$senha}<br>{$resultado}";
         // if ($resultado != null) {
         //     $_SESSION['usuario'] = $resultado;
         //     $_SESSION['logado'] = true;
