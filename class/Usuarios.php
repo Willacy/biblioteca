@@ -72,10 +72,10 @@ class Usuarios extends Conexao
     }
 
     // Metodo fazer login
-    public function fazLogin($login_usuario, $senha_usuario)
+    public function fazLogin($usuario)
     {
-        $login = $login_usuario;
-        $senha = $senha_usuario;
+        $login = $usuario->getLogin();
+        $senha = $usuario->getSenha();
 
         $query = "SELECT * FROM usuarios WHERE login_usuario = :login";
         $stmt = $this->conexao->prepare($query);
@@ -84,10 +84,17 @@ class Usuarios extends Conexao
         $stmt->execute();
 
         // Busca o usuário com o login fornecido
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuario && $usuario['senha_usuario'] === $senha) {
+        if ($resultado && $resultado['senha_usuario'] === $senha) {
             // Login válido
+
+            // Inseri os dados do banco no usuario;
+            $usuario->setId($resultado['id_usuario']);
+            $usuario->setNome($resultado['nome_usuario']);
+            $usuario->setAtivo($resultado['ativo_usuario']);
+            $usuario->setTipo($resultado['tipo_usuario']);
+            //Retorna o usuario
             return $usuario;
         } else {
             // Login inválido
